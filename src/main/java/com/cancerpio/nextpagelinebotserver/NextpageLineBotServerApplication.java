@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class NextpageLineBotServerApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(NextpageLineBotServerApplication.class, args);
-	}
+    public static void main(String[] args) {
+	SpringApplication.run(NextpageLineBotServerApplication.class, args);
+    }
 
 }

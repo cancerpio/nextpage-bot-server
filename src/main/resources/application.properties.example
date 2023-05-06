@@ -1,0 +1,7 @@
+#kafka config
+spring.kafka.bootstrap-servers=localhost:9092
+spring.kafka.consumer.id=HENRY_TEST_1
+spring.kafka.consumer.topic=HENRY_TEST
+spring.kafka.consumer.groupId=HENRY_TEST
+#latest, earliest, or none
+spring.kafka.consumer.autoOffsetReset=latest

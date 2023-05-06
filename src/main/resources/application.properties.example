@@ -5,3 +5,8 @@ spring.kafka.consumer.topic=HENRY_TEST
 spring.kafka.consumer.groupId=HENRY_TEST
 #latest, earliest, or none
 spring.kafka.consumer.autoOffsetReset=latest
+
+#linebot config
+#get from https://developers.line.biz/console
+line.bot.channelToken=  
+line.bot.channelSecret =   

@@ -38,7 +38,7 @@ public class OpenAiApiService {
 //                    + "    \"openAIfeedback\": \"your feedback\"\n" + "}\n" + "";
             preface = "Please answer according to the type of the User message.\n" +
                     "\n" +
-                    "If the message is some kind of training log, you are a Strength and Conditioning Coach. Please try to infer the information of action(should be translated in English), action type, repetition, set, percentage of repetition maximum, duration, feeling, date(write today if not mentioned), and advice for the next training (write to “advice” property for each action, should be translated in \"繁體中文\" if user input is in Chinese.), then respond with a JSON schema. \n" +
+                    "If the message is some kind of training log, you are a Strength and Conditioning Coach. Please try to infer the information of action(should be translated in English), action type, weight(in kilograms), repetition, set, percentage of repetition maximum, duration, feeling, date(write today if not mentioned), and advice for the next training (write to “advice” property for each action, should be translated in \"繁體中文\" if user input is in Chinese.), then respond with a JSON schema. \n" +
                     "\n" +
                     "For example:\n" +
                     "User: \"I just finished today's training program, deadlift for 3 sets of 5 reps, at about 75% of my 1RM. After that, I went jogging for 1 hour, which made me very tired.\"\n" +
@@ -49,6 +49,7 @@ public class OpenAiApiService {
                     "  [{\n" +
                     "   \"action\":\"Deadlift\",\n" +
                     "   \"actionType\":  \"Weight training\",\n" +
+                    "   \"weight\": 110,\n" +
                     "   \"repetition\": 5,\n" +
                     "   \"set\": 3,\n" +
                     "   \"percentagOfRepetitionMaximum\": \"75\",\n" +
@@ -60,6 +61,7 @@ public class OpenAiApiService {
                     "{\n" +
                     "   \"action\":\"Jogging\",\n" +
                     "   \"actionType\":  \"cardio\",\n" +
+                    "   \"weight\": null,\n" +
                     "   \"repetition\": null,\n" +
                     "   \"set\": null,\n" +
                     "   \"percentagOfRepetitionMaximum\": null,\n" +
@@ -69,6 +71,8 @@ public class OpenAiApiService {
                     "   \"date\":\"27/05/2023\" \n" +
                     "}] \n" +
                     "}\n" +
+                    " \n" +
+                    "\n" +
                     "If the message is about food and diet, then you are a Nutritionist. Please analyze the protein and fat\n" +
                     "In grams, and calories in kcal then respond with JSON schema.\n" +
                     "For example: \n" +
@@ -83,9 +87,18 @@ public class OpenAiApiService {
                     "     \"fat\": 10\n" +
                     "  } \n" +
                     "}\n" +
-                    "If user message is either one of the above types, just respond as ChatGPT at chat.openai.com.\n" +
+                    "If the user message is either one of the above types, just respond as ChatGPT at chat.openai.com.\n" +
+                    "write the response in JSON schema  like: \n" +
+                    "{\n" +
+                    "  \"about\":\"ChatGPT\",  \n" +
+                    "  \"ChatGPT response\":\n" +
+                    "  {\n" +
+                    "    \"response\":\n" +
+                    "  } \n" +
+                    "}\n" +
+                    "\n" +
                     "The advice should be translated in Traditional Chinese if user input is in Chinese, otherwise, all the properties in the JSON should be in English.\n" +
-                    "Don’t response anything beside the json which contains your answer.\n";
+                    "Don’t respond to anything beside the json which contains your answer.\n";
         } else preface = pre;
         final ChatMessage userMessage = new ChatMessage(ChatMessageRole.USER.value(), preface + "\n" + userInputPrompt);
         messages.add(userMessage);

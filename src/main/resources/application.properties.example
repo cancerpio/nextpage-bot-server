@@ -9,4 +9,9 @@ spring.kafka.consumer.autoOffsetReset=latest
 #linebot config
 #get from https://developers.line.biz/console
 line.bot.channelToken=  
-line.bot.channelSecret =   
+line.bot.channelSecret=  
+
+#openai api config
+openai.api.key= 
+#seconds
+openai.api.timeout=

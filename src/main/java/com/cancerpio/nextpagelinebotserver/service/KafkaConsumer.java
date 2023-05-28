@@ -1,7 +1,7 @@
 package com.cancerpio.nextpagelinebotserver.service;
 
+import com.cancerpio.nextpagelinebotserver.MessageContent;
 import com.cancerpio.nextpagelinebotserver.OpenAIResponse;
-import com.cancerpio.nextpagelinebotserver.TrainingLog;
 import com.cancerpio.nextpagelinebotserver.UserData;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -47,9 +47,9 @@ class KafkaConsumer {
     Boolean saveJasonStringToMongo(String jsonString) {
         try {
             OpenAIResponse openAIResponse = objectMapper.readValue(jsonString, OpenAIResponse.class);
-            List<TrainingLog> trainingLogList = openAIResponse.getMessageContent();
-            trainingLogList.forEach((trainingLog) -> {
-                System.out.println("Action : " + trainingLog.getAction());
+            List<MessageContent> messageContents = openAIResponse.messageContent;
+            messageContents.forEach((messageContent) -> {
+                System.out.println("MessageContent: " + messageContent);
             });
         } catch (JsonProcessingException e) {
             System.out.println(e.getStackTrace());

@@ -38,15 +38,15 @@ public class OpenAiApiService {
 //                    + "    \"openAIfeedback\": \"your feedback\"\n" + "}\n" + "";
             preface = "Please answer according to the type of the User message.\n" +
                     "\n" +
-                    "If the message is some kind of training log, you are a Strength and Conditioning Coach. Please try to infer the information of action(should be translated in English), action type, weight(in kilograms), repetition, set, percentage of repetition maximum, duration, feeling, date(write today if not mentioned), and advice for the next training (write to “advice” property for each action, should be translated in \"繁體中文\" if user input is in Chinese.), then respond with a JSON schema. \n" +
+                    "If the message is some kind of training log, you are a Strength and Conditioning Coach. Please try to infer the information of action(should be translated in English), action type, weight(in kilograms, just write the number), repetition, set, percentage of repetition maximum, duration, feeling, date(write today if not mentioned), and advice for the next training (write to “advice” property for each action, should be translated in \"繁體中文\" if user input is in Chinese.), then respond with a JSON schema. \n" +
                     "\n" +
                     "For example:\n" +
                     "User: \"I just finished today's training program, deadlift for 3 sets of 5 reps, at about 75% of my 1RM. After that, I went jogging for 1 hour, which made me very tired.\"\n" +
                     "Coach: \n" +
                     "{\n" +
-                    "  \"about\":\"TrainingRecords\",\n" +
                     "  \"messageContent\":\n" +
                     "  [{\n" +
+                    "   \"about\":\"TrainingRecords\",\n" +
                     "   \"action\":\"Deadlift\",\n" +
                     "   \"actionType\":  \"Weight training\",\n" +
                     "   \"weight\": 110,\n" +
@@ -59,6 +59,7 @@ public class OpenAiApiService {
                     "   \"date\":\"27/05/2023\" \n" +
                     "},\n" +
                     "{\n" +
+                    "  \"about\":\"TrainingRecords\",\n" +
                     "   \"action\":\"Jogging\",\n" +
                     "   \"actionType\":  \"cardio\",\n" +
                     "   \"weight\": null,\n" +
@@ -78,10 +79,10 @@ public class OpenAiApiService {
                     "For example: \n" +
                     "User:”Steak”\n" +
                     "Nutritionist:\n" +
-                    "{\n" +
-                    "  \"about\":\"Diet\",  \n" +
+                    "{ \n" +
                     "  \"messageContent\":\n" +
                     "   [{\n" +
+                    "    \"about\":\"Diet\",  \n" +
                     "    \"calories\":250,\n" +
                     "     \"protein\": 35,\n" +
                     "     \"fat\": 10\n" +
@@ -90,10 +91,10 @@ public class OpenAiApiService {
                     "}\n" +
                     "If the user message is either one of the above types, just respond as ChatGPT at chat.openai.com.\n" +
                     "write the response in JSON schema  like: \n" +
-                    "[{\n" +
-                    "  \"about\":\"ChatGPT\",  \n" +
+                    "[{ \n" +
                     "  \"messageContent\":\n" +
                     "  {\n" +
+                    "    \"about\":\"ChatGPT\",   \n" +
                     "    \"response\":\n" +
                     "  } \n" +
                     "}]\n" +

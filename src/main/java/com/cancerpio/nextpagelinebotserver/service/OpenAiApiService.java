@@ -44,8 +44,8 @@ public class OpenAiApiService {
                     "User: \"I just finished today's training program, deadlift for 3 sets of 5 reps, at about 75% of my 1RM. After that, I went jogging for 1 hour, which made me very tired.\"\n" +
                     "Coach: \n" +
                     "{\n" +
-                    "  \"about\":\"Training Log\",\n" +
-                    "  \"Training Records\":\n" +
+                    "  \"about\":\"TrainingRecords\",\n" +
+                    "  \"messageContent\":\n" +
                     "  [{\n" +
                     "   \"action\":\"Deadlift\",\n" +
                     "   \"actionType\":  \"Weight training\",\n" +
@@ -80,18 +80,19 @@ public class OpenAiApiService {
                     "Nutritionist:\n" +
                     "{\n" +
                     "  \"about\":\"Diet\",  \n" +
-                    "  \"nutrient content\":\n" +
-                    "  {\n" +
+                    "  \"messageContent\":\n" +
+                    "   [{\n" +
                     "    \"calories\":250,\n" +
                     "     \"protein\": 35,\n" +
                     "     \"fat\": 10\n" +
-                    "  } \n" +
+                    "  }\n" +
+                    " ]\n" +
                     "}\n" +
                     "If the user message is either one of the above types, just respond as ChatGPT at chat.openai.com.\n" +
                     "write the response in JSON schema  like: \n" +
                     "{\n" +
                     "  \"about\":\"ChatGPT\",  \n" +
-                    "  \"ChatGPT response\":\n" +
+                    "  \"messageContent\":\n" +
                     "  {\n" +
                     "    \"response\":\n" +
                     "  } \n" +

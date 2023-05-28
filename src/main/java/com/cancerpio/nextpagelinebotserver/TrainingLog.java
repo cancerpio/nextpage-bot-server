@@ -15,10 +15,10 @@ package com.cancerpio.nextpagelinebotserver;
 public class TrainingLog {
     String action;
     String actionType;
-    int weight;
-    int repetition;
-    int set;
-    int percentagOfRepetitionMaximum;
+    Integer weight;
+    Integer repetition;
+    Integer set;
+    Integer percentagOfRepetitionMaximum;
     String duration;
     String feeling;
     String advice;

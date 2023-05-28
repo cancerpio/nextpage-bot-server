@@ -90,13 +90,13 @@ public class OpenAiApiService {
                     "}\n" +
                     "If the user message is either one of the above types, just respond as ChatGPT at chat.openai.com.\n" +
                     "write the response in JSON schema  like: \n" +
-                    "{\n" +
+                    "[{\n" +
                     "  \"about\":\"ChatGPT\",  \n" +
                     "  \"messageContent\":\n" +
                     "  {\n" +
                     "    \"response\":\n" +
                     "  } \n" +
-                    "}\n" +
+                    "}]\n" +
                     "\n" +
                     "The advice should be translated in Traditional Chinese if user input is in Chinese, otherwise, all the properties in the JSON should be in English.\n" +
                     "Don’t respond to anything beside the json which contains your answer.\n";

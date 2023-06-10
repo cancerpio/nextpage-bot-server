@@ -15,3 +15,5 @@ line.bot.channelSecret=
 openai.api.key= 
 #seconds
 openai.api.timeout=
+#mongodb
+spring.data.mongodb.uri

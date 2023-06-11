@@ -4,7 +4,6 @@ import com.cancerpio.nextpagelinebotserver.MessageContent;
 import com.cancerpio.nextpagelinebotserver.MessageContentTrainingLog;
 import com.cancerpio.nextpagelinebotserver.OpenAIResponse;
 import com.cancerpio.nextpagelinebotserver.UserData;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.LineSignatureValidator;
@@ -38,7 +37,7 @@ class KafkaConsumer {
             String userId = userData.getUserId();
             String text = userData.getText();
             String openAiResponse = openAiApiService.sendMessage(null, text);
-            boolean storeStatus = saveTrainingDatatoMongo(openAiResponse, userId);
+            boolean storeStatus = saveTrainingDataToMongodb(openAiResponse, userId);
             String replyMessage = "Your message is: " + text + "\nResponse: " + openAiResponse + "\n storeStatus: " + storeStatus;
             lineMessagingClient.replyMessage(new ReplyMessage(replyToken, new TextMessage(replyMessage))).get()
                     .getMessage();
@@ -49,20 +48,22 @@ class KafkaConsumer {
         }
     }
 
-    boolean saveTrainingDatatoMongo(String jsonString, String userId) {
+    boolean saveTrainingDataToMongodb(String jsonString, String userId) {
         boolean saveResult = false;
 
         try {
             OpenAIResponse openAIResponse = objectMapper.readValue(jsonString, OpenAIResponse.class);
             List<MessageContent> messageContents = openAIResponse.messageContent;
-            messageContents.stream().filter(messageContent -> messageContent instanceof MessageContentTrainingLog).forEach(messageContent -> {
-                ((MessageContentTrainingLog) messageContent).userId = userId;
-                mongoTemplate.insert(messageContent);
-                System.out.println("Training record: " + messageContent + "has been saved");
-            });
-            saveResult = true;
-
-        } catch (JsonProcessingException e) {
+            for (MessageContent messageContent : messageContents) {
+                if (messageContent instanceof MessageContentTrainingLog) {
+                    ((MessageContentTrainingLog) messageContent).userId = userId;
+                    mongoTemplate.insert(messageContent);
+                    System.out.println("Training record: " + messageContent + "has been saved");
+                    saveResult = true;
+                }
+            }
+        } catch (Exception e) {
+            saveResult = false;
             System.out.println(e.getStackTrace());
         }
 

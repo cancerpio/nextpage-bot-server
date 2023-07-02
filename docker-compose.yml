@@ -1,0 +1,59 @@
+version: "2"
+
+services:
+  mongodb:
+    image: mongo:6.0.4
+    container_name: mongodb
+    restart: unless-stopped
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+      - MONGO_INITDB_DATABASE=nextpage
+    volumes:
+      - ./mongodb/initdb.d/:/docker-entrypoint-initdb.d/
+      - MONGO_VOLUMES:/data/db
+    ports:
+      - 27017:27017
+
+  zookeeper:
+    image: zookeeper:3.4
+    mem_limit: 104857600
+    container_name: zookeeper
+    restart: unless-stopped
+    ports:
+      # exposing for debug reason
+      - 2181:2181
+    volumes:
+      - "./zookeeper/data:/data"
+      - "./zookeeper/datalog:/datalog"
+      - "./zookeeper/zoo.cfg:/conf/zoo.cfg"
+  kafka:
+    image: 'bitnami/kafka:2.1.1'
+    hostname: localhost
+    container_name: kafka
+    restart: unless-stopped
+    ports:
+      # 方便從host call Kafka Connect 的Rest API (8083 port)
+      - '8083:8083'
+      - '9092:9092'
+      # expose the external port for external clients     
+      - '9093:9093'
+    environment:
+      # Kafka defaults to the following jvm memory parameters which mean that kafka will allocate 1GB at startup and use a maximum of 1GB of memory
+      - KAFKA_HEAP_OPTS=-Xmx512m -Xms256m
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      # set listeners and advertised listeners for external (9093) and internal(9092)
+      - KAFKA_LISTENERS=INTERNAL://0.0.0.0:9092,EXTERNAL://0.0.0.0:9093
+      - KAFKA_ADVERTISED_LISTENERS=INTERNAL://localhost:9092,EXTERNAL://${URL_TO_KAFKA_EC2}:9093
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_INTER_BROKER_LISTENER_NAME=INTERNAL
+      #- KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+
+    volumes:
+      - KAFKA_VOLUMES:/bitnami/kafka
+    depends_on:
+      - zookeeper
+volumes:
+  MONGO_VOLUMES:
+  KAFKA_VOLUMES:

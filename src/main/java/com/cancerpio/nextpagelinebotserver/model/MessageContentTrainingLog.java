@@ -1,4 +1,4 @@
-package com.cancerpio.nextpagelinebotserver;
+package com.cancerpio.nextpagelinebotserver.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 

@@ -1,4 +1,4 @@
-package com.cancerpio.nextpagelinebotserver;
+package com.cancerpio.nextpagelinebotserver.constant;
 
 public interface RecordType {
 

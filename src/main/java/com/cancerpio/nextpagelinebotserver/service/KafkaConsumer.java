@@ -1,9 +1,9 @@
 package com.cancerpio.nextpagelinebotserver.service;
 
-import com.cancerpio.nextpagelinebotserver.MessageContent;
-import com.cancerpio.nextpagelinebotserver.MessageContentTrainingLog;
-import com.cancerpio.nextpagelinebotserver.OpenAIResponse;
-import com.cancerpio.nextpagelinebotserver.UserData;
+import com.cancerpio.nextpagelinebotserver.model.MessageContent;
+import com.cancerpio.nextpagelinebotserver.model.MessageContentTrainingLog;
+import com.cancerpio.nextpagelinebotserver.model.OpenAIResponse;
+import com.cancerpio.nextpagelinebotserver.model.UserData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.LineSignatureValidator;

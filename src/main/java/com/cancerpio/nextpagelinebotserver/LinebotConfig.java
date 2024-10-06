@@ -11,7 +11,6 @@ import com.linecorp.bot.client.LineSignatureValidator;
 
 @Configuration
 public class LinebotConfig {
-
     @Value("${line.bot.channelToken}")
     private String channelToken;
     @Value("${line.bot.channelSecret}")

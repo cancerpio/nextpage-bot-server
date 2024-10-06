@@ -1,4 +1,4 @@
-package com.cancerpio.nextpagelinebotserver;
+package com.cancerpio.nextpagelinebotserver.model;
 //{
 //        "action":"Deadlift",
 //        "actionType":  "Weight training",

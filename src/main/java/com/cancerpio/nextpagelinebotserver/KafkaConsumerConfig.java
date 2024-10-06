@@ -3,6 +3,7 @@ package com.cancerpio.nextpagelinebotserver;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.cancerpio.nextpagelinebotserver.model.UserData;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;

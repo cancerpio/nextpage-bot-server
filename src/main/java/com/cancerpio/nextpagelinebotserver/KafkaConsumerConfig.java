@@ -25,6 +25,7 @@ public class KafkaConsumerConfig {
     @Value("${spring.kafka.consumer.autoOffsetReset}")
     private String autoOffsetReset;
 
+    // 設定一個客製化的ConsumerFactory並註冊給Spring: 因為我們需處理JSON格式的資料，所以這邊要指定Key和Value的Deserializer
     @Bean
     public ConsumerFactory<String, UserData> userDataConsumerFactory() {
 	return new DefaultKafkaConsumerFactory<>(consumerProps(), new StringDeserializer(),
@@ -32,11 +33,9 @@ public class KafkaConsumerConfig {
     }
 
     @Bean
-    // 設定給@kafkaListener的containerFactor 必須自己取個名字,
-    // ex: 這邊用的 userDataListenerContainerFactory
-    // 否則spring還是會用預設的defaultListenerContainerFactory，造成
-    // ...is in unnamed module of loader ... java.lang.String is in module java.base
-    // of loader 'bootstrap"錯誤
+    // 設定給@kafkaListener的ContainerFactory，並且指定ConsumerFactory為上面客製化後的ConsumerFactory
+    // 需注意: @KafkaListener必須指定containerFactory為此Bean名稱: "userDataListenerContainerFactory"
+    // 否則Spring會使用預設的containerFactory
     ConcurrentKafkaListenerContainerFactory<String, UserData> userDataListenerContainerFactory(
 	    ConsumerFactory<String, UserData> consumerFactory) {
 	ConcurrentKafkaListenerContainerFactory<String, UserData> factory = new ConcurrentKafkaListenerContainerFactory<>();

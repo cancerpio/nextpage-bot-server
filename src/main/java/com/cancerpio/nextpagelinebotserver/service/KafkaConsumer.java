@@ -30,6 +30,8 @@ class KafkaConsumer {
     @Autowired
     MongoTemplate mongoTemplate;
 
+    // 設定@KafkaListener，並指定要監聽的topic和containerFactory
+    // 這邊的containerFactory必須指定為我們在KafkaConsumerConfig中客製的"userDataListenerContainerFactory"，來正確的處理JSON資料
     @KafkaListener(id = "${spring.kafka.consumer.id}", topics = "${spring.kafka.consumer.topic}", containerFactory = "userDataListenerContainerFactory")
     public void UserDataListener(UserData userData) {
         try {

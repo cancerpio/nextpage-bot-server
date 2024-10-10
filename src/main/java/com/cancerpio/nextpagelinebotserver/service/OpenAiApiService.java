@@ -124,12 +124,6 @@ public class OpenAiApiService {
             e.printStackTrace();
         }
 
-        //        service.streamChatCompletion(chatCompletionRequest)
-//                .doOnError(Throwable::printStackTrace)
-//                .blockingForEach(System.out::println);
-//
-//        service.shutdownExecutor();
-
         return answer.toString();
     }
 

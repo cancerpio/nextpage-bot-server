@@ -102,7 +102,9 @@ public class OpenAiApiService {
                     "The advice should be translated in Traditional Chinese if user input is in Chinese, otherwise, all the properties in the JSON should be in English.\n" +
                     "Don’t respond to anything beside the json which contains your answer.\n";
         } else preface = pre;
-        final ChatMessage userMessage = new ChatMessage(ChatMessageRole.USER.value(), preface + "\n" + userInputPrompt);
+        final ChatMessage systemMessage = new ChatMessage(ChatMessageRole.SYSTEM.value(), preface);
+        final ChatMessage userMessage = new ChatMessage(ChatMessageRole.USER.value(), userInputPrompt);
+        messages.add(systemMessage);
         messages.add(userMessage);
         ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest
                 .builder()
